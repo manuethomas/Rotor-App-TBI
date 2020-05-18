@@ -14,7 +14,8 @@
         android:background="@color/cardViewColor"
         android:elevation="3dp"
         android:theme="@style/Theme.MaterialComponents.Light"
-        card_view:cardCornerRadius="@dimen/card_radius">
+        card_view:cardCornerRadius="@dimen/card_radius"
+        card_view:cardUseCompatPadding="false">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
