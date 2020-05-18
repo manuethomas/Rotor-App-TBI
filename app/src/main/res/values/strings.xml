@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">TBI App Home</string>
+    <string name="request">request</string>
+    <string name="profile">profile</string>
+    <string name="machine">Machine</string>
 </resources>
