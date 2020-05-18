@@ -56,11 +56,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:layout_weight="1"
-                    android:fontFamily="@font/poppins_semibold"
+                    android:fontFamily="@font/roboto_bold"
                     android:letterSpacing="0"
                     android:text="Demo Text"
                     android:textAlignment="viewStart"
-                    android:textColor="#C3272525" />
+                    android:textColor="#BF000000" />
 
 
                 <ImageView

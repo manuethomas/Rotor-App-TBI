@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/custom_requests_background">
+    android:background="@color/cardViewColor">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/iconCardView"
@@ -62,12 +62,11 @@
                 android:id="@+id/machineUsedTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:fontFamily="@font/poppins_semibold"
+                android:layout_marginTop="0dp"
+                android:fontFamily="@font/open_sans_bold"
                 android:includeFontPadding="false"
                 android:text="PCB Milling Machine"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:textColor="#C3272525"
+                android:textColor="#BF000000"
                 android:textSize="16sp" />
 
             <LinearLayout
@@ -79,32 +78,35 @@
                     android:id="@+id/uNameTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="0dp"
+                    android:layout_marginTop="12dp"
                     android:layout_weight="1"
                     android:fontFamily="@font/poppins_medium"
                     android:includeFontPadding="false"
                     android:text="Manu E Thomas"
-                    android:textSize="13sp" />
+                    android:textColor="#BF272525"
+                    android:textSize="12sp" />
 
                 <TextView
                     android:id="@+id/dateTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="0dp"
+                    android:layout_marginTop="12dp"
                     android:layout_weight="1"
                     android:includeFontPadding="false"
                     android:text="04 April"
-                    android:textSize="12sp" />
+                    android:textColor="#BF272525"
+                    android:textSize="11sp" />
 
                 <TextView
                     android:id="@+id/timeTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="0dp"
+                    android:layout_marginTop="12dp"
                     android:layout_weight="1"
                     android:includeFontPadding="false"
                     android:text="9:30 - 12:30"
-                    android:textSize="12sp" />
+                    android:textColor="#BF272525"
+                    android:textSize="11sp" />
 
 
             </LinearLayout>
@@ -114,5 +116,12 @@
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="59dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

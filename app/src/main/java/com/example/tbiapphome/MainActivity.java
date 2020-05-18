@@ -98,6 +98,33 @@ public class MainActivity extends AppCompatActivity {
         a = new Machine("Drill",covers[3]);
         machineList.add(a);
 
+        a = new Machine("CNC ",covers[2]);
+        machineList.add(a);
+
+        a = new Machine("Drill",covers[3]);
+        machineList.add(a);
+
+        a = new Machine("CNC ",covers[2]);
+        machineList.add(a);
+
+        a = new Machine("Drill",covers[3]);
+        machineList.add(a);
+
+        a = new Machine("CNC ",covers[2]);
+        machineList.add(a);
+
+        a = new Machine("Drill",covers[3]);
+        machineList.add(a);
+
+        a = new Machine("CNC ",covers[2]);
+        machineList.add(a);
+
+        a = new Machine("Drill",covers[3]);
+        machineList.add(a);
+
+        a = new Machine("Drill",covers[3]);
+        machineList.add(a);
+
         adapter.notifyDataSetChanged();
     }
 
