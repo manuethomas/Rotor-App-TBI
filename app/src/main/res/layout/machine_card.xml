@@ -57,8 +57,10 @@
                     android:layout_marginStart="20dp"
                     android:layout_weight="1"
                     android:fontFamily="@font/poppins_semibold"
+                    android:letterSpacing="0"
                     android:text="Demo Text"
-                    android:textAlignment="viewStart" />
+                    android:textAlignment="viewStart"
+                    android:textColor="#C3272525" />
 
 
                 <ImageView

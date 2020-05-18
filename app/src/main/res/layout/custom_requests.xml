@@ -67,6 +67,7 @@
                 android:includeFontPadding="false"
                 android:text="PCB Milling Machine"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="#C3272525"
                 android:textSize="16sp" />
 
             <LinearLayout

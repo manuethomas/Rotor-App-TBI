@@ -63,12 +63,12 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.requestIcon:
-                        Intent intent = new Intent(getApplicationContext(),RequestsActivity.class);
-                        startActivity(intent);
+                        activityNavigator(RequestsActivity.class);
                         return true;
                     case R.id.machines:
                         return true;
                     case R.id.profileIcon:
+                        activityNavigator(ProfileActivity.class);
                         return true;
                 }
                 return false;
@@ -147,4 +147,8 @@ public class MainActivity extends AppCompatActivity {
         return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics()));
     }
 
+    public void activityNavigator(Class className){
+        Intent intent = new Intent(getApplicationContext(),className);
+        startActivity(intent);
+    }
 }
