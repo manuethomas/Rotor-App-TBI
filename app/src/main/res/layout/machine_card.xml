@@ -24,14 +24,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="10dp"
-                android:gravity="center_horizontal"
+                android:gravity="left"
                 android:orientation="vertical"
-                card_view:layout_constraintTop_toTopOf="parent">
+                card_view:layout_constraintTop_toTopOf="parent"
+                tools:layout_editor_absoluteX="5dp">
 
                 <ImageView
                     android:id="@+id/machineCardImageView"
                     android:layout_width="@dimen/card_thumbnail_width"
-                    android:layout_height="@dimen/card_thumbnail_height" />
+                    android:layout_height="@dimen/card_thumbnail_height"
+                    android:layout_marginStart="20dp" />
 
 
             </LinearLayout>
@@ -40,7 +42,7 @@
                 android:id="@+id/linLayoutHorizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="8dp"
                 android:orientation="horizontal"
                 card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintStart_toStartOf="parent"
@@ -50,10 +52,10 @@
                     android:id="@+id/machineCardName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
+                    android:layout_marginStart="20dp"
                     android:layout_weight="1"
                     android:text="Demo Text"
-                    android:textAlignment="center" />
+                    android:textAlignment="viewStart" />
 
 
                 <ImageView
