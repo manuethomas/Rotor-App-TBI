@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="20dp"
+    tools:context=".MainActivity"
+    xmlns:mask="http://schemas.android.com/apk/res-auto">
+
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/request_dialog_components_border"
+        android:padding="18dp"/>
+
+    <br.com.sapereaude.maskedEditText.MaskedEditText
+        android:id="@+id/dateEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:hint="ddmm"
+        android:inputType="text"
+        android:typeface="monospace"
+        app:keep_hint="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        mask:allowed_chars="1234567890"
+        mask:mask="##/##"
+        android:background="@drawable/request_dialog_components_border"
+        android:drawableLeft="@drawable/date_icon"
+        android:padding="10dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="16dp">
+
+        <br.com.sapereaude.maskedEditText.MaskedEditText
+            android:id="@+id/startTimeEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:hint="1000"
+            android:inputType="text"
+            android:typeface="monospace"
+            app:keep_hint="true"
+            mask:allowed_chars="1234567890"
+            mask:mask="##:##"
+            android:background="@drawable/request_dialog_components_border"
+            android:drawableLeft="@drawable/start_clock"
+            android:padding="10dp"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorAccent"
+            android:text="-"
+            android:layout_gravity="center"
+            android:textSize="35sp"
+            android:layout_marginStart="5dp"/>
+
+
+        <br.com.sapereaude.maskedEditText.MaskedEditText
+            android:id="@+id/endTimeEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:layout_marginLeft="5dp"
+            android:hint="1200"
+            android:inputType="text"
+            android:typeface="monospace"
+            app:keep_hint="true"
+            mask:allowed_chars="1234567890"
+            mask:mask="##:##"
+            android:background="@drawable/request_dialog_components_border"
+            android:drawableLeft="@drawable/ic_end_clock"
+            android:padding="10dp"
+            android:layout_weight="1"/>
+
+
+    </LinearLayout>
+
+</LinearLayout>
