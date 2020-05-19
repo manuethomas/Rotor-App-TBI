@@ -39,6 +39,6 @@ public class ProfileActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        MainActivity.bottomNavigationView.setSelectedItemId(R.id.machines);
+        MachineActivity.bottomNavigationView.setSelectedItemId(R.id.machines);
     }
 }
