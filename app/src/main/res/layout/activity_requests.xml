@@ -40,7 +40,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="10dp"
         android:divider="#fff"
-        android:dividerHeight="12dp"
+        android:dividerHeight="0dp"
         android:scrollbars="none"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

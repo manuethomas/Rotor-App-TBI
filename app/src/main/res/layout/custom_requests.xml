@@ -62,7 +62,8 @@
                 android:id="@+id/machineUsedTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="0dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="0dp"
                 android:fontFamily="@font/open_sans_bold"
                 android:includeFontPadding="false"
                 android:text="PCB Milling Machine"
@@ -72,15 +73,17 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
                 android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/uNameTextView"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
+                    android:layout_gravity="start"
+                    android:layout_marginTop="0dp"
                     android:layout_weight="1"
-                    android:fontFamily="@font/poppins_medium"
+                    android:fontFamily="sans-serif"
                     android:includeFontPadding="false"
                     android:text="Manu E Thomas"
                     android:textColor="#BF272525"
@@ -88,9 +91,10 @@
 
                 <TextView
                     android:id="@+id/dateTextView"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
+                    android:layout_gravity="start"
+                    android:layout_marginTop="4dp"
                     android:layout_weight="1"
                     android:includeFontPadding="false"
                     android:text="04 April"
@@ -99,9 +103,10 @@
 
                 <TextView
                     android:id="@+id/timeTextView"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
+                    android:layout_gravity="start"
+                    android:layout_marginTop="0dp"
                     android:layout_weight="1"
                     android:includeFontPadding="false"
                     android:text="9:30 - 12:30"
@@ -123,5 +128,23 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="59dp" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/iconCardView"
+        app:layout_constraintTop_toTopOf="@+id/guideline"
+        app:srcCompat="@drawable/separator_line_customrequests" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="291dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
