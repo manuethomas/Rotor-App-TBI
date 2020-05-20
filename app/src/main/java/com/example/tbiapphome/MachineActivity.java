@@ -83,44 +83,52 @@ public class MachineActivity extends AppCompatActivity {
                 R.drawable.m1,
                 R.drawable.m2,
                 R.drawable.m3,
-                R.drawable.m4};
-        Machine a = new Machine("Contact",covers[0]);
+                R.drawable.m4,
+                R.drawable.m5};
+        Machine a;
+        a = new Machine("Cutting Machine",covers[0]);
         machineList.add(a);
 
         a = new Machine("Screwdriver",covers[1]);
         machineList.add(a);
 
-        a = new Machine("CNC ",covers[2]);
+        a = new Machine("CNC Machine ",covers[2]);
         machineList.add(a);
 
-        a = new Machine("Drill",covers[3]);
+        a = new Machine("Drill Machine",covers[3]);
         machineList.add(a);
 
-        a = new Machine("CNC ",covers[2]);
+        a = new Machine("Angle Grinder",covers[4]);
         machineList.add(a);
 
-        a = new Machine("Drill",covers[3]);
+        a = new Machine("Cutting Machine",covers[0]);
         machineList.add(a);
 
-        a = new Machine("CNC ",covers[2]);
+        a = new Machine("Screwdriver",covers[1]);
         machineList.add(a);
 
-        a = new Machine("Drill",covers[3]);
+        a = new Machine("CNC Machine ",covers[2]);
         machineList.add(a);
 
-        a = new Machine("CNC ",covers[2]);
+        a = new Machine("Drill Machine",covers[3]);
         machineList.add(a);
 
-        a = new Machine("Drill",covers[3]);
+        a = new Machine("Angle Grinder",covers[4]);
         machineList.add(a);
 
-        a = new Machine("CNC ",covers[2]);
+        a = new Machine("Cutting Machine",covers[0]);
         machineList.add(a);
 
-        a = new Machine("Drill",covers[3]);
+        a = new Machine("Screwdriver",covers[1]);
         machineList.add(a);
 
-        a = new Machine("Drill",covers[3]);
+        a = new Machine("CNC Machine ",covers[2]);
+        machineList.add(a);
+
+        a = new Machine("Drill Machine",covers[3]);
+        machineList.add(a);
+
+        a = new Machine("Angle Grinder",covers[4]);
         machineList.add(a);
 
         adapter.notifyDataSetChanged();

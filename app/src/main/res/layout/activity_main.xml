@@ -19,6 +19,7 @@
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="0dp" />
+
     </LinearLayout>
 
     <LinearLayout
@@ -35,10 +36,12 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
+
         <TextView
-            android:text="Full name"
+            android:id="@+id/fullNameTextView"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="Full name" />
         <EditText
             android:id="@+id/newUnameEditText"
             android:drawablePadding="20dp"
@@ -80,14 +83,61 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
         <Button
-            android:id="@+id/fbButton"
+            android:id="@+id/googleButton"
             android:layout_marginTop="10dp"
+            android:layout_marginBottom="20dp"
             android:textColor="#FFF"
             android:background="@drawable/rect_gradient_google"
             android:textAllCaps="false"
             android:text="Sign Up with GOOGLE"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <TextView
+                    android:id="@+id/bottomWordTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="4dp"
+                    android:layout_weight="1"
+                    android:text="Already Registered?"
+                    android:textAlignment="viewEnd" />
+
+                <TextView
+                    android:id="@+id/signInTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="1"
+                    android:text="Sign in"
+                    android:textColor="#FF416C" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginStart="4dp"
+                    android:layout_weight="1"
+                    android:text="here" />
+
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
     </LinearLayout>
 
     <ImageView
@@ -105,16 +155,17 @@
 
 
     <TextView
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/logoImageView"
-        android:textSize="20sp"
-        android:textColor="#FFF"
-        android:layout_centerHorizontal="true"
-        android:text="Sign Up"
+        android:id="@+id/signUpTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"/>
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:text="Sign Up"
+        android:textColor="#FFF"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/logoImageView" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

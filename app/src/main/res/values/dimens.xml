@@ -2,6 +2,6 @@
 <resources>
     <dimen name="card_margin">5dp</dimen>
     <dimen name="card_radius">8dp</dimen>
-    <dimen name="card_thumbnail_height">60dp</dimen>
-    <dimen name="card_thumbnail_width">60dp</dimen>
+    <dimen name="card_thumbnail_height">55dp</dimen>
+    <dimen name="card_thumbnail_width">55dp</dimen>
 </resources>
