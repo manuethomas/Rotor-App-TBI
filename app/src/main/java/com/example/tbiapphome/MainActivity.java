@@ -219,7 +219,6 @@ public class MainActivity extends AppCompatActivity {
                             // If sign in fails, display a message to the user.
                             Log.i("info", "signInWithCredential:failure", task.getException());
                             Snackbar.make(findViewById(R.id.loginScreenMainConstraintLayout), "Authentication Failed.", Snackbar.LENGTH_SHORT).show();
-                            login();
                         }
 
                         // [START_EXCLUDE]

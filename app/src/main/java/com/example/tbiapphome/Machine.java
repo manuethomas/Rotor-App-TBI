@@ -1,10 +1,12 @@
 package com.example.tbiapphome;
 
+import com.google.firebase.storage.StorageReference;
+
 public class Machine {
     String machineName;
-    int machineIcon;
+    StorageReference machineIcon;
 
-    public Machine(String machineName, int machineIcon) {
+    public Machine(String machineName, StorageReference machineIcon) {
         this.machineName = machineName;
         this.machineIcon = machineIcon;
     }
@@ -13,7 +15,7 @@ public class Machine {
         return machineName;
     }
 
-    public int getMachineIcon() {
+    public StorageReference getMachineIcon() {
         return machineIcon;
     }
 
@@ -21,7 +23,7 @@ public class Machine {
         this.machineName = machineName;
     }
 
-    public void setMachineIcon(int machineIcon) {
+    public void setMachineIcon(StorageReference machineIcon) {
         this.machineIcon = machineIcon;
     }
 }

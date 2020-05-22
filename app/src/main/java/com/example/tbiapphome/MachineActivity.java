@@ -1,6 +1,7 @@
 package com.example.tbiapphome;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -16,28 +17,45 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+
+import javax.security.auth.login.LoginException;
 
 public class MachineActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private MachineAdapter adapter;
     private List<Machine> machineList;
 
+    ProgressBar machinesProgressBar;
     static BottomNavigationView bottomNavigationView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_machine);
-        Log.i("info", "Its safe here");
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+
+        machinesProgressBar = findViewById(R.id.machinesProgressBar);
 
         machineList = new ArrayList<>();
         adapter = new MachineAdapter(this, machineList);
 
+        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 2);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.addItemDecoration(new MachineActivity.GridSpacingItemDecoration(2, dpToPx(10), true));
@@ -45,15 +63,7 @@ public class MachineActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
 
         prepareMachineIcons();
-        /* setting background cover
-        try {
-            Glide.with(this).load(R.drawable.cover).into((ImageView) findViewById(R.id.backdrop));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
-         */
-        // going to activity requests
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.getMenu().findItem(R.id.machines).setChecked(true);
 
@@ -65,6 +75,7 @@ public class MachineActivity extends AppCompatActivity {
                         activityNavigator(RequestsActivity.class);
                         return true;
                     case R.id.machines:
+                        activityNavigator(GlideTestingActivity.class);
                         return true;
                     case R.id.profileIcon:
                         activityNavigator(ProfileActivity.class);
@@ -79,59 +90,51 @@ public class MachineActivity extends AppCompatActivity {
      * Adding few albums for testing
      */
     private void prepareMachineIcons() {
-        int[] covers = new int[]{
-                R.drawable.m1,
-                R.drawable.m2,
-                R.drawable.m3,
-                R.drawable.m4,
-                R.drawable.m5};
-        Machine a;
-        a = new Machine("Cutting Machine",covers[0]);
-        machineList.add(a);
+        //Starting progressbar
 
-        a = new Machine("Screwdriver",covers[1]);
-        machineList.add(a);
+        //quering the database
+        //Using two array to store the name and iconurl
+        final ArrayList<String> name = new ArrayList<>();
+        final ArrayList<String> iconurl = new ArrayList<>();
+        FirebaseDatabase mDatabase;
+        DatabaseReference mRef;
+        mDatabase = FirebaseDatabase.getInstance();
+        mDatabase.setPersistenceEnabled(true);
+        mRef = mDatabase.getReference();
+        Query machines = mRef.child("Machines");
+        machines.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                machinesProgressBar.setVisibility(View.VISIBLE);
+                Log.i("info","progressbar shown");
+                for (DataSnapshot child : dataSnapshot.getChildren()){
+                    MachineDetails machineDetails = child.getValue(MachineDetails.class);
+                    name.add(machineDetails.getName());
+                    iconurl.add(machineDetails.getIconurl());
+                }
+                //items acquired in name and iconurl array, now proceeding update the machine UI
+                if (name.size()>0 && iconurl.size()>0){
+                    for (int i =0; i<name.size(); i++){
+                        StorageReference storageReference = FirebaseStorage.getInstance().getReference();
+                        StorageReference iconPathReference = storageReference.child(iconurl.get(i));
+                        // iconPathReference got from the iconurl
+                        //updating machine UI
+                        Machine a;
+                        a = new Machine(name.get(i), iconPathReference);
+                        machineList.add(a);
+                        adapter.notifyDataSetChanged();
+                    }
+                    machinesProgressBar.setVisibility(View.INVISIBLE);
+                    Log.i("info","Progressbar closed");
+                }
+            }
 
-        a = new Machine("CNC Machine ",covers[2]);
-        machineList.add(a);
-
-        a = new Machine("Drill Machine",covers[3]);
-        machineList.add(a);
-
-        a = new Machine("Angle Grinder",covers[4]);
-        machineList.add(a);
-
-        a = new Machine("Cutting Machine",covers[0]);
-        machineList.add(a);
-
-        a = new Machine("Screwdriver",covers[1]);
-        machineList.add(a);
-
-        a = new Machine("CNC Machine ",covers[2]);
-        machineList.add(a);
-
-        a = new Machine("Drill Machine",covers[3]);
-        machineList.add(a);
-
-        a = new Machine("Angle Grinder",covers[4]);
-        machineList.add(a);
-
-        a = new Machine("Cutting Machine",covers[0]);
-        machineList.add(a);
-
-        a = new Machine("Screwdriver",covers[1]);
-        machineList.add(a);
-
-        a = new Machine("CNC Machine ",covers[2]);
-        machineList.add(a);
-
-        a = new Machine("Drill Machine",covers[3]);
-        machineList.add(a);
-
-        a = new Machine("Angle Grinder",covers[4]);
-        machineList.add(a);
-
-        adapter.notifyDataSetChanged();
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(MachineActivity.this, "Enable internet connection", Toast.LENGTH_SHORT).show();
+                Log.i("info", "Enable Internet");
+            }
+        });
     }
 
     /**
