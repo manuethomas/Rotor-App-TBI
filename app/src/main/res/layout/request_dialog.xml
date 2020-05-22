@@ -22,7 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:hint="ddmm"
+        android:hint="ddmmyy"
         android:inputType="text"
         android:typeface="monospace"
         app:keep_hint="true"
@@ -30,7 +30,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         mask:allowed_chars="1234567890"
-        mask:mask="##/##"
+        mask:mask="##/##/##"
         android:background="@drawable/request_dialog_components_border"
         android:drawableLeft="@drawable/date_icon"
         android:padding="10dp"/>

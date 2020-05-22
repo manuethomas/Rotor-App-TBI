@@ -7,6 +7,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -28,6 +29,7 @@ public class MachineAdapter extends RecyclerView.Adapter<MachineAdapter.MyViewHo
 
     private Context mContext;
     private List<Machine> machineList;
+    //Variable for the
 
     public class MyViewHolder extends RecyclerView.ViewHolder{
         public TextView machineCardName;
