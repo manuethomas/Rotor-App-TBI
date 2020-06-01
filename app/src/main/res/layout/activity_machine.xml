@@ -11,7 +11,6 @@
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="90dp"
         android:layout_marginBottom="8dp"
         android:clipToPadding="false"
         android:nestedScrollingEnabled="true"
@@ -19,21 +18,20 @@
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/activityMachineGuideline1" />
 
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="17dp"
-        android:layout_marginTop="38dp"
         android:fontFamily="@font/poppins_bold"
         android:text="Machines"
         android:textColor="#FFFFFF"
         android:textSize="22sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        tools:layout_editor_absoluteX="16dp"
+        app:layout_constraintTop_toBottomOf="@id/activityMachineGuideline2"
+        app:layout_constraintStart_toStartOf="@id/activityMachineguidelineLeftMargin"/>
 
     <ProgressBar
         android:id="@+id/machinesProgressBar"
@@ -50,9 +48,6 @@
         android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
         android:background="@drawable/bottom_nav_baground"
         android:elevation="8dp"
         app:itemIconTint="@color/bottom_nav_icon_color"
@@ -60,6 +55,29 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:menu="@menu/menu_bottom_nav" />
+        app:menu="@menu/menu_bottom_nav">
+
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/activityMachineGuideline1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.124487005" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/activityMachineGuideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.05" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/activityMachineguidelineLeftMargin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.04136253" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

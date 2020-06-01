@@ -2,6 +2,7 @@ package com.example.tbiapphome;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -64,6 +65,7 @@ public class MachineAdapter extends RecyclerView.Adapter<MachineAdapter.MyViewHo
 
         // loading machine icons using Glide library
         Glide.with(mContext).load(machine.getMachineIcon()).into(holder.machineCardImageView);
+        //Log.i("MachineAdapter", machine.getMachineIcon().toString());
 
         holder.overflow.setOnClickListener(new View.OnClickListener() {
             @Override

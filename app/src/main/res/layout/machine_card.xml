@@ -25,7 +25,7 @@
                 android:id="@+id/linLayoutVertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="14dp"
                 android:gravity="left"
                 android:orientation="vertical"
                 card_view:layout_constraintTop_toTopOf="parent"
@@ -35,7 +35,8 @@
                     android:id="@+id/machineCardImageView"
                     android:layout_width="@dimen/card_thumbnail_width"
                     android:layout_height="@dimen/card_thumbnail_height"
-                    android:layout_marginStart="20dp" />
+                    android:layout_marginStart="20dp"
+                    android:scaleType="centerCrop" />
 
 
             </LinearLayout>
@@ -44,7 +45,6 @@
                 android:id="@+id/linLayoutHorizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
                 android:orientation="horizontal"
                 card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintStart_toStartOf="parent"
@@ -55,12 +55,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
+                    android:layout_marginTop="4dp"
                     android:layout_weight="1"
-                    android:fontFamily="sans-serif-medium"
+                    android:fontFamily="sans-serif"
                     android:letterSpacing="0"
                     android:text="Demo Text"
                     android:textAlignment="viewStart"
-                    android:textColor="#BF000000" />
+                    android:textColor="@color/cardview_dark_background"
+                    android:textSize="14sp" />
 
 
                 <ImageView

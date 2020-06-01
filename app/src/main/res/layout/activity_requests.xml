@@ -11,34 +11,45 @@
         android:id="@+id/constraintLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="#057BC5"
+        android:background="#2e42b2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/activityRequestGuideline1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.40" />
 
         <TextView
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="17dp"
-            android:layout_marginTop="38dp"
             android:layout_marginBottom="8dp"
             android:fontFamily="@font/poppins_bold"
-            android:text="Requests"
+            android:text="Bookings"
             android:textColor="#FFFFFF"
             android:textSize="22sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toStartOf="@id/activityRequestsGuidelineLeftMargin"
+            app:layout_constraintTop_toBottomOf="@id/activityRequestGuideline1" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/activityRequestsGuidelineLeftMargin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.04136253" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ListView
         android:id="@+id/requestsListView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="10dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="10dp"
         android:divider="#fff"
         android:dividerHeight="0dp"
         android:scrollbars="none"
@@ -47,6 +58,25 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="1.0">
+
+    </ListView>
+
+    <ProgressBar
+        android:id="@+id/requestActivityProgressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/activityRequestGuideline2"
+        tools:layout_editor_absoluteY="96dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/activityRequestGuideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.88372093" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

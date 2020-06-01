@@ -108,11 +108,12 @@ public class MainActivity extends AppCompatActivity {
                                                             }
                                                         }
                                                     });
+                                            user.updateEmail(emailEditText.getText().toString());
                                         } else {
                                             progressBarLoginScreen.setVisibility(View.INVISIBLE);
                                             // If sign up fails, display a message to the user.
                                             Log.i("info", "createUserWithEmail:failure", task.getException());
-                                            Snackbar.make(findViewById(R.id.loginScreenMainConstraintLayout), " Account creation failed", Snackbar.LENGTH_SHORT).show();
+                                            Snackbar.make(findViewById(R.id.loginScreenMainConstraintLayout), "Account creation failed.Weak password", Snackbar.LENGTH_SHORT).show();
                                         }
 
                                     }
@@ -130,6 +131,7 @@ public class MainActivity extends AppCompatActivity {
                                         progressBarLoginScreen.setVisibility(View.INVISIBLE);
                                         // Sign in success, update UI with the signed-in user's information
                                         Snackbar.make(findViewById(R.id.loginScreenMainConstraintLayout), " Signed in", Snackbar.LENGTH_SHORT).show();
+                                        login();
                                         Log.i("Info", "signInWithEmail:success");
                                     } else {
                                         progressBarLoginScreen.setVisibility(View.INVISIBLE);
@@ -227,4 +229,5 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
     }
+
 }

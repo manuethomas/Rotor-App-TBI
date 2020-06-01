@@ -45,6 +45,7 @@ public class MachineActivity extends AppCompatActivity {
 
     ProgressBar machinesProgressBar;
     static BottomNavigationView bottomNavigationView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,10 +76,9 @@ public class MachineActivity extends AppCompatActivity {
                         activityNavigator(RequestsActivity.class);
                         return true;
                     case R.id.machines:
-                        activityNavigator(GlideTestingActivity.class);
                         return true;
                     case R.id.profileIcon:
-                        activityNavigator(ProfileActivity.class);
+                        activityNavigator(DashboardActivity.class);
                         return true;
                 }
                 return false;
@@ -99,22 +99,26 @@ public class MachineActivity extends AppCompatActivity {
         FirebaseDatabase mDatabase;
         DatabaseReference mRef;
         mDatabase = FirebaseDatabase.getInstance();
-        mDatabase.setPersistenceEnabled(true);
         mRef = mDatabase.getReference();
         Query machines = mRef.child("Machines");
-        machines.addListenerForSingleValueEvent(new ValueEventListener() {
+                                                                                                        //change made here
+        machines.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                name.clear();
+                iconurl.clear();
+                machineList.clear();
+                adapter.notifyDataSetChanged();
                 machinesProgressBar.setVisibility(View.VISIBLE);
-                Log.i("info","progressbar shown");
-                for (DataSnapshot child : dataSnapshot.getChildren()){
+                Log.i("info", "progressbar shown");
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
                     MachineDetails machineDetails = child.getValue(MachineDetails.class);
                     name.add(machineDetails.getName());
                     iconurl.add(machineDetails.getIconurl());
                 }
                 //items acquired in name and iconurl array, now proceeding update the machine UI
-                if (name.size()>0 && iconurl.size()>0){
-                    for (int i =0; i<name.size(); i++){
+                if (name.size() > 0 && iconurl.size() > 0) {
+                    for (int i = 0; i < name.size(); i++) {
                         StorageReference storageReference = FirebaseStorage.getInstance().getReference();
                         StorageReference iconPathReference = storageReference.child(iconurl.get(i));
                         // iconPathReference got from the iconurl
@@ -125,14 +129,12 @@ public class MachineActivity extends AppCompatActivity {
                         adapter.notifyDataSetChanged();
                     }
                     machinesProgressBar.setVisibility(View.INVISIBLE);
-                    Log.i("info","Progressbar closed");
+                    Log.i("info", "Progressbar closed");
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(MachineActivity.this, "Enable internet connection", Toast.LENGTH_SHORT).show();
-                Log.i("info", "Enable Internet");
             }
         });
     }
@@ -183,54 +185,13 @@ public class MachineActivity extends AppCompatActivity {
         return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics()));
     }
 
-    public void activityNavigator(Class className){
-        Intent intent = new Intent(getApplicationContext(),className);
+    public void activityNavigator(Class className) {
+        Intent intent = new Intent(getApplicationContext(), className);
         startActivity(intent);
     }
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-
-        machineList = new ArrayList<>();
-        adapter = new MachineAdapter(this, machineList);
-
-        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 2);
-        recyclerView.setLayoutManager(mLayoutManager);
-        recyclerView.addItemDecoration(new MachineActivity.GridSpacingItemDecoration(2, dpToPx(10), true));
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(adapter);
-
-        prepareMachineIcons();
-        /* setting background cover
-        try {
-            Glide.with(this).load(R.drawable.cover).into((ImageView) findViewById(R.id.backdrop));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-         */
-        // going to activity requests
-        bottomNavigationView = findViewById(R.id.bottomNavigationView);
-        bottomNavigationView.getMenu().findItem(R.id.machines).setChecked(true);
-
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.requestIcon:
-                        activityNavigator(RequestsActivity.class);
-                        return true;
-                    case R.id.machines:
-                        return true;
-                    case R.id.profileIcon:
-                        activityNavigator(ProfileActivity.class);
-                        return true;
-                }
-                return false;
-            }
-        });
 
     }
 }

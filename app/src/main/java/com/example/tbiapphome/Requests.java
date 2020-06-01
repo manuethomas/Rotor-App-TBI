@@ -1,16 +1,33 @@
 package com.example.tbiapphome;
 
-public class Requests {
-    String machineUsedTextView, uNameTextView, dateTextView, TimeTextView;
-    int machineUsedIconImageView;
+import com.google.firebase.storage.StorageReference;
 
-    public Requests(String machineUsedTextView, String uNameTextView, String dateTextView, String timeTextView, int machineUsedIconImageView) {
+public class Requests {
+    String machineUsedTextView;
+    String uNameTextView;
+    String dateTextView;
+    String uid;
+    String phoneNo;
+    StorageReference machineIcon;
+
+    public Requests(String machineUsedTextView, String uNameTextView, String dateTextView, StorageReference machineIcon, String phoneNo) {
         this.machineUsedTextView = machineUsedTextView;
         this.uNameTextView = uNameTextView;
         this.dateTextView = dateTextView;
-        TimeTextView = timeTextView;
-        this.machineUsedIconImageView = machineUsedIconImageView;
+        this.machineIcon = machineIcon;
+        this.phoneNo = phoneNo;
     }
+
+    public Requests(){
+        //for datasnapshot
+    }
+
+    public Requests (String machineUsedTextView, String dateTextView, String uid){
+        this.machineUsedTextView = machineUsedTextView;
+        this.dateTextView = dateTextView;
+        this.uid = uid;
+    }
+
 
     public String getMachineUsedTextView() {
         return machineUsedTextView;
@@ -24,11 +41,16 @@ public class Requests {
         return dateTextView;
     }
 
-    public String getTimeTextView() {
-        return TimeTextView;
+    public StorageReference getMachineIcon() {
+        return machineIcon;
     }
 
-    public int getMachineUsedIconImageView() {
-        return machineUsedIconImageView;
-    }
+    public String getUid() { return uid; }
+
+    public void setUid(String uid) { this.uid = uid; }
+
+    public String getPhoneNo() { return phoneNo; }
+
+    public void setPhoneNo(String phoneNo) { this.phoneNo = phoneNo; }
+
 }

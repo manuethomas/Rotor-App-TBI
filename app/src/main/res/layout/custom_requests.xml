@@ -11,6 +11,7 @@
         android:layout_width="65dp"
         android:layout_height="65dp"
         android:layout_centerHorizontal="true"
+        android:layout_marginStart="10dp"
         android:elevation="12dp"
         android:innerRadius="0dp"
         android:shape="ring"
@@ -23,18 +24,22 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="12.5dp"
-            android:layout_marginEnd="5dp"
-            android:layout_marginBottom="12.5dp"
+            android:layout_marginStart="3dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="3dp"
+            android:layout_marginBottom="8dp"
             app:layout_constraintStart_toStartOf="@id/iconCardView">
 
             <ImageView
                 android:id="@+id/machineUsedIconImageView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@drawable/blankimg"
                 android:foregroundGravity="center"
-                android:src="@drawable/m2" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -46,6 +51,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/iconCardView"
         app:layout_constraintTop_toTopOf="parent">
@@ -62,18 +70,18 @@
                 android:id="@+id/machineUsedTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
+                android:layout_marginTop="0dp"
                 android:layout_marginBottom="0dp"
-                android:fontFamily="@font/open_sans_bold"
+                android:fontFamily="sans-serif-medium"
                 android:includeFontPadding="false"
                 android:text="PCB Milling Machine"
                 android:textColor="#BF000000"
-                android:textSize="16sp" />
+                android:textSize="14sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
+                android:layout_marginTop="4dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -90,26 +98,28 @@
                     android:textSize="12sp" />
 
                 <TextView
+                    android:id="@+id/phoneNoTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    android:fontFamily="sans-serif"
+                    android:includeFontPadding="false"
+                    android:text="9495730789"
+                    android:textColor="#BF272525"
+                    android:textSize="12sp" />
+
+                <TextView
                     android:id="@+id/dateTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start"
+                    android:layout_marginStart="8dp"
                     android:layout_marginTop="4dp"
                     android:layout_weight="1"
                     android:includeFontPadding="false"
                     android:text="04 April"
-                    android:textColor="#BF272525"
-                    android:textSize="11sp" />
-
-                <TextView
-                    android:id="@+id/timeTextView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="start"
-                    android:layout_marginTop="0dp"
-                    android:layout_weight="1"
-                    android:includeFontPadding="false"
-                    android:text="9:30 - 12:30"
                     android:textColor="#BF272525"
                     android:textSize="11sp" />
 
@@ -123,28 +133,20 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline"
+        android:id="@+id/activityRequestGuideline1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="59dp" />
+        app:layout_constraintGuide_begin="75dp" />
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="0dp"
         android:layout_height="2dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/iconCardView"
-        app:layout_constraintTop_toTopOf="@+id/guideline"
+        app:layout_constraintTop_toBottomOf="@id/iconCardView"
         app:srcCompat="@drawable/separator_line_customrequests" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="291dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

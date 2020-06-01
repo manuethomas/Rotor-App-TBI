@@ -6,4 +6,7 @@
     <color name="colorIconInactive">#9ebaf8</color>
     <color name="colorIconActive">#0065f9</color>
     <color name="cardViewColor">#ffffff</color>
+    <color name="totalRequestColor">#e3f8fa</color>
+    <color name="activeRequestColor">#ffe6e2</color>
+    <color name="overdueRequestColor">#f5e6fe</color>
 </resources>
