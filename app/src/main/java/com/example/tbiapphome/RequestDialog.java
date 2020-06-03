@@ -199,10 +199,10 @@ public class RequestDialog  {
                             bookingInfo.put("machine name", spinner.getSelectedItem().toString());
                             bookingInfo.put("date", currentDate);
                             bookingInfo.put("iconurl", iconurl[0]);
-                            bookingInfo.put("phone number", phoneEditText.getRawText().toString());
+                            bookingInfo.put("phone number", phoneEditText.getRawText());
                             bookingInfo.put("timestamp", ServerValue.TIMESTAMP);
 
-                            FirebaseDatabase.getInstance().getReference().child("Active Bookings").child(spinner.getSelectedItem().toString()).child("Bookings").child(FirebaseAuth.getInstance().getCurrentUser().getUid().toString()).setValue(bookingInfo);
+                            FirebaseDatabase.getInstance().getReference().child("Active Bookings").child(spinner.getSelectedItem().toString()).child("Bookings").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(bookingInfo);
                             FirebaseDatabase.getInstance().getReference().child("Active Bookings").child(spinner.getSelectedItem().toString()).child("available count").setValue(availabilityCount[0]-1);
                             Toast.makeText(activity, "Booked", Toast.LENGTH_SHORT).show();
 
@@ -221,26 +221,6 @@ public class RequestDialog  {
 
                         }
                     });
-                    /*
-                    Query queryMachineBook = mRef.child("Active Bookings");
-                    queryMachineBook.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            for (DataSnapshot UIDs : dataSnapshot.child(spinner.getSelectedItem().toString()).child("Bookings").getChildren()){
-                                //taking each UID
-                                Log.i("info", UIDs.child("machine name").getValue().toString());
-
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                        }
-                    });
-
-                     */
-
                 }
             }
         });
@@ -276,10 +256,7 @@ public class RequestDialog  {
                 System.err.println("Listener was cancelled");
             }
         });
-        if (connectionStatus[0] == 1)
-            return true;
-        else
-            return false;
+        return connectionStatus[0] == 1;
     }
 
     public static boolean isEnteredDateValid(String enteredDate, Context activity) throws ParseException {

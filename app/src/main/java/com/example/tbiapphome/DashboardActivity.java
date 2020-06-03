@@ -48,7 +48,7 @@ public class DashboardActivity extends AppCompatActivity {
     EditText dashboardProfessionEditText;
     EditText dashboardSemesterEditText;
     EditText dashboardBranchEditText;
-    int emailTouchCount=0;
+    int checkConnectionCount=0;
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +68,10 @@ public class DashboardActivity extends AppCompatActivity {
         requestsList = new ArrayList<>();
 
         //to check internet connection
-        checkConnection(DashboardActivity.this);
+        if (checkConnectionCount<2) {
+            checkConnection(DashboardActivity.this);
+            checkConnectionCount++;
+        }
 
         //setting email from profile info
         dashboardEmailEditText.setText(FirebaseAuth.getInstance().getCurrentUser().getEmail());
@@ -91,7 +94,7 @@ public class DashboardActivity extends AppCompatActivity {
                     deleteBookingsAdapter.notifyDataSetChanged();
                     try {
                         name = dataSnapshot.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("name").getValue().toString();
-                        for (DataSnapshot child : dataSnapshot.child(FirebaseAuth.getInstance().getCurrentUser().getUid().toString()).child("Active Bookings").getChildren()) {
+                        for (DataSnapshot child : dataSnapshot.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("Active Bookings").getChildren()) {
                             //each individual request got, taking the required values
                             machineName = child.child("machine name").getValue().toString();
                             date = child.child("date").getValue().toString();
@@ -308,10 +311,7 @@ public class DashboardActivity extends AppCompatActivity {
             }
 
         }, delay);
-        if (connectionStatus[0] == 1)
-            return true;
-        else
-            return false;
+        return connectionStatus[0] == 1;
 
     }
 

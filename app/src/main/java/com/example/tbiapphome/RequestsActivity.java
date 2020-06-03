@@ -37,6 +37,7 @@ public class RequestsActivity extends AppCompatActivity {
     String iconurl;
     String phoneNo;
     RequestsAdapter requestsAdapter;
+    int checkConnectionCount = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +47,10 @@ public class RequestsActivity extends AppCompatActivity {
         requestActivityProgressBar.setVisibility(View.INVISIBLE);
 
         //to check internet connection
-        checkConnection(this);
+        if (checkConnectionCount<2) {
+            checkConnection(this);
+            checkConnectionCount++;
+        }
 
         //querying database to get all the requests
         FirebaseDatabase mDatabase;
@@ -131,10 +135,7 @@ public class RequestsActivity extends AppCompatActivity {
             }
 
         }, delay);
-        if (connectionStatus[0] == 1)
-            return true;
-        else
-            return false;
+        return connectionStatus[0] == 1;
 
     }
 

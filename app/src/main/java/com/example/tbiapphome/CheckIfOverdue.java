@@ -16,10 +16,7 @@ public class CheckIfOverdue {
     // Return if year is leap year or not.
     static boolean isLeap(int y)
     {
-        if (y % 100 != 0 && y % 4 == 0 || y % 400 == 0)
-            return true;
-
-        return false;
+        return y % 100 != 0 && y % 4 == 0 || y % 400 == 0;
     }
 
     // Given a date, returns number of days elapsed
@@ -122,12 +119,7 @@ public class CheckIfOverdue {
         DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
         Calendar calendar = Calendar.getInstance();
         String currentDate = df.format(calendar.getTime());
-        if (compareDates(currentDate, futureDate)){
-            return true;
-        }
-        else {
-            return false;
-        }
+        return compareDates(currentDate, futureDate);
     }
 
     static Boolean compareDates(String currentDate, String futureDate) throws ParseException {
@@ -140,10 +132,7 @@ public class CheckIfOverdue {
             return true;
         } else if(d1.compareTo(d2) < 0) {
             return false;
-        } else if(d1.compareTo(d2) == 0) {
-            return false;
-        }
-        return true;
+        } else return d1.compareTo(d2) != 0;
     }
 
 }

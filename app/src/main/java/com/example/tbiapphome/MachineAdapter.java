@@ -40,7 +40,7 @@ public class MachineAdapter extends RecyclerView.Adapter<MachineAdapter.MyViewHo
             super(itemView);
             machineCardName = itemView.findViewById(R.id.machineCardName);
             machineCardImageView = itemView.findViewById(R.id.machineCardImageView);
-            overflow = (ImageView) itemView.findViewById(R.id.overflow);
+            overflow = itemView.findViewById(R.id.overflow);
         }
 
     }//myViewHolder class ended

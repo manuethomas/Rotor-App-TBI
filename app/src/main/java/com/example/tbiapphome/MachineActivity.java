@@ -45,6 +45,7 @@ public class MachineActivity extends AppCompatActivity {
 
     ProgressBar machinesProgressBar;
     static BottomNavigationView bottomNavigationView;
+    int backButtonCount=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +57,7 @@ public class MachineActivity extends AppCompatActivity {
         machineList = new ArrayList<>();
         adapter = new MachineAdapter(this, machineList);
 
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        recyclerView = findViewById(R.id.recycler_view);
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 2);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.addItemDecoration(new MachineActivity.GridSpacingItemDecoration(2, dpToPx(10), true));
@@ -192,6 +193,15 @@ public class MachineActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        if (backButtonCount >= 1){
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_HOME);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        }else{
+            Toast.makeText(this, "Press the back button once again to close the application.", Toast.LENGTH_SHORT).show();
+            backButtonCount++;
+        }
 
     }
 }
