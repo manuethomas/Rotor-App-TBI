@@ -7,28 +7,55 @@
     tools:context=".DashboardActivity">
 
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/activityDashboardGuideline1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.22708619" />
+
+    <TextView
+        android:id="@+id/acitivityDashboardDemoTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="50dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="@id/activityDashboardConstraintLayout1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/activityDashboardConstraintLayout1"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintHeight_percent="0.24"
         android:background="@drawable/dashboardbg"
+        app:layout_constraintBottom_toTopOf="@id/activityDashboardGuideline1"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/activityDashboardGuideline2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.16853933" />
 
         <TextView
             android:id="@+id/textView5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="26dp"
-            android:layout_marginTop="30dp"
             android:alpha="0.8"
             android:fontFamily="sans-serif"
             android:text="Welcome"
             android:textColor="#FFFFFF"
             android:textSize="13sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/activityDashboardGuideline2" />
 
         <TextView
             android:id="@+id/dashBoardUsernameTextView"
@@ -43,13 +70,6 @@
             app:layout_constraintTop_toBottomOf="@+id/textView5" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/activityRequestGuideline1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.124487005" />
-
     <LinearLayout
         android:id="@+id/linearLayoutBookings"
         android:layout_width="match_parent"
@@ -57,7 +77,7 @@
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/activityRequestGuideline1">
+        app:layout_constraintTop_toBottomOf="@id/acitivityDashboardDemoTextView">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView1"
@@ -214,18 +234,18 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:scrollbars="none"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/linearLayoutBookings"
-        android:scrollbars="none">
+        app:layout_constraintTop_toBottomOf="@id/linearLayoutBookings">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:focusable="true"
-            android:focusableInTouchMode="true">
+            android:focusableInTouchMode="true"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/profileHeading"
@@ -271,7 +291,7 @@
                         android:fontFamily="sans-serif-medium"
                         android:hint="Email"
                         android:padding="8dp"
-                        android:textColor="#BF000000"
+                        android:textColor="#FF424242"
                         android:textSize="14sp" />
 
                     <EditText
@@ -284,7 +304,7 @@
                         android:fontFamily="sans-serif-medium"
                         android:hint="Profession"
                         android:padding="8dp"
-                        android:textColor="#BF000000"
+                        android:textColor="#FF424242"
                         android:textSize="14sp" />
 
                     <EditText
@@ -333,8 +353,8 @@
                 android:id="@+id/bookingsListView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:divider="#fff"/>
+                android:divider="#fff"
+                android:padding="8dp" />
 
 
         </LinearLayout>

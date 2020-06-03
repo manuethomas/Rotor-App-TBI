@@ -9,8 +9,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -60,7 +62,18 @@ public class MainActivity extends AppCompatActivity {
         emailEditText = findViewById(R.id.emailEditText);
         passwordEditText = findViewById(R.id.passwordEditText);
         progressBarLoginScreen = findViewById(R.id.progressBarLoginScreen);
+        ImageView activityMainBlueImageView = findViewById(R.id.activityMainBlueImageView);
         progressBarLoginScreen.setVisibility(View.INVISIBLE);
+
+        //setting the touch listener to imageView
+        activityMainBlueImageView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+                inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),0);
+                return true;
+            }
+        });
 
         //google sign in config
         //google sign in
@@ -113,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
                                             progressBarLoginScreen.setVisibility(View.INVISIBLE);
                                             // If sign up fails, display a message to the user.
                                             Log.i("info", "createUserWithEmail:failure", task.getException());
-                                            Snackbar.make(findViewById(R.id.loginScreenMainConstraintLayout), "Account creation failed.Weak password", Snackbar.LENGTH_SHORT).show();
+                                            Snackbar.make(findViewById(R.id.loginScreenMainConstraintLayout), task.getException().getMessage(), Snackbar.LENGTH_SHORT).show();
                                         }
 
                                     }
@@ -137,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
                                         progressBarLoginScreen.setVisibility(View.INVISIBLE);
                                         // If sign in fails, display a message to the user.
                                         Log.i("info", "signInWithEmail:failure", task.getException());
-                                        Snackbar.make(findViewById(R.id.loginScreenMainConstraintLayout), " Sign in failed", Snackbar.LENGTH_SHORT).show();
+                                        Snackbar.make(findViewById(R.id.loginScreenMainConstraintLayout), task.getException().getMessage(), Snackbar.LENGTH_SHORT).show();
                                     }
 
                                 }
@@ -171,6 +184,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+
 
     public void login(){
         Intent intent = new Intent(getApplicationContext(), MachineActivity.class);
@@ -229,5 +244,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
     }
+
 
 }
