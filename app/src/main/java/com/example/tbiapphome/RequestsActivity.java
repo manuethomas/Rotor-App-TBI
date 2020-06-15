@@ -69,23 +69,25 @@ public class RequestsActivity extends AppCompatActivity {
                 requestActivityProgressBar.setVisibility(View.VISIBLE);
                 for (DataSnapshot individualMachines : dataSnapshot.getChildren()){
                     try {
-                        for (DataSnapshot individualBookings : individualMachines.child("Bookings").getChildren()){
-                            name = individualBookings.child("name").getValue().toString();
-                            date = individualBookings.child("date").getValue().toString();
-                            machineName = individualBookings.child("machine name").getValue().toString();
-                            iconurl = individualBookings.child("iconurl").getValue().toString();
-                            phoneNo = individualBookings.child("phone number").getValue().toString();
-                            Log.i("info", name);
-                            Log.i("info", date);
-                            Log.i("info", machineName);
-                            Log.i("info", iconurl);
+                        for (DataSnapshot uids : individualMachines.child("Bookings").getChildren()){
+                            for (DataSnapshot individualBookings: uids.getChildren()) {
+                                name = individualBookings.child("name").getValue().toString();
+                                date = individualBookings.child("date").getValue().toString();
+                                machineName = individualBookings.child("machine name").getValue().toString();
+                                iconurl = individualBookings.child("iconurl").getValue().toString();
+                                phoneNo = individualBookings.child("phone number").getValue().toString();
+                                Log.i("info", name);
+                                Log.i("info", date);
+                                Log.i("info", machineName);
+                                Log.i("info", iconurl);
 
-                            //to get pathReference of machineIcon from iconurl
-                            StorageReference storageReference = FirebaseStorage.getInstance().getReference();
-                            StorageReference iconPathReference = storageReference.child(iconurl);
-                            requestsList.add(new Requests(machineName, name, date, iconPathReference, phoneNo));
-                            requestsAdapter.notifyDataSetChanged();
-                            requestActivityProgressBar.setVisibility(View.INVISIBLE);
+                                //to get pathReference of machineIcon from iconurl
+                                StorageReference storageReference = FirebaseStorage.getInstance().getReference();
+                                StorageReference iconPathReference = storageReference.child(iconurl);
+                                requestsList.add(new Requests(machineName, name, date, iconPathReference, phoneNo));
+                                requestsAdapter.notifyDataSetChanged();
+                                requestActivityProgressBar.setVisibility(View.INVISIBLE);
+                            }
 
 
                         }

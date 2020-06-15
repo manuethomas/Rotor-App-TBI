@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -28,6 +29,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class DeleteBookingsAdapter extends ArrayAdapter<Requests> {
     Context context;
@@ -47,27 +50,40 @@ public class DeleteBookingsAdapter extends ArrayAdapter<Requests> {
         View view = inflater.inflate(R.layout.custom_delete_bookings ,null);
         final TextView machineNameTextView = view.findViewById(R.id.machineNameTextView);
         TextView dateTextView = view.findViewById(R.id.dateTextView);
+        final ImageView translucentImageView = view.findViewById(R.id.traslucentImageView);
+        final TextView sendTextView = view.findViewById(R.id.sendTextView);
         final Requests requests = requestsList.get(position);
         machineNameTextView.setText(requests.getMachineUsedTextView());
         dateTextView.setText(requests.getDateTextView());
+
+        Log.i("Info",requests.getBookingType());
+        //if booking type equals request send then display the translucent imageview
+        if (requests.getBookingType().equalsIgnoreCase("request send")){
+            translucentImageView.setAlpha((float) 0.92);
+            sendTextView.setAlpha(1);
+            view.findViewById(R.id.endBookingButton).setEnabled(false);
+        }
         view.findViewById(R.id.endBookingButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //code
-                Log.i("info", "Button Clicked");
-                AlertDialog.Builder dialog = new AlertDialog.Builder(context);
-                dialog.setTitle("Confirm");
-                dialog.setMessage("Are you sure you want to end the booking");
-                dialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setTitle("Confirm");
+                builder.setMessage("Are you sure you want to end the booking");
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        //code
 
-                        //first adding the delete log to all bookings table
+                        // displaying the translucentImageView and disabling the end button
+                            translucentImageView.setAlpha((float) 0.92);
+                            sendTextView.setAlpha(1);
+
                         //getting current date first
                         DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
                         Calendar calendar = Calendar.getInstance();
                         String currentDate = df.format(calendar.getTime());
 
+                        // send the end request to admin
                         HashMap<String, Object> bookingInfo = new HashMap<>();
                         bookingInfo.put("booking type", "End");
                         bookingInfo.put("name", requests.getuNameTextView());
@@ -76,62 +92,24 @@ public class DeleteBookingsAdapter extends ArrayAdapter<Requests> {
                         bookingInfo.put("phone number", requests.getPhoneNo());
                         bookingInfo.put("timestamp", ServerValue.TIMESTAMP);
 
-                        String key = FirebaseDatabase.getInstance().getReference().push().getKey();
-                        FirebaseDatabase.getInstance().getReference().child("All Bookings").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(requests.getMachineUsedTextView()).child(key).setValue(bookingInfo);
+                        FirebaseDatabase.getInstance().getReference().child("Admin").child("End Requests").child(FirebaseAuth.getInstance().getUid()).child(requests.getMachineUsedTextView()).child(requests.getKey()).setValue(bookingInfo);
 
-                        requestsList.remove(position);
-                        notifyDataSetChanged();
-                        dialog.dismiss();
-
-                        //removing the booking from active bookings
-                        FirebaseDatabase.getInstance().getReference().child("Active Bookings").child(requests.getMachineUsedTextView()).child("Bookings").removeValue();
-
-                        //removing the booking from Users
-                        FirebaseDatabase.getInstance().getReference().child("Users").child(requests.getUid()).child("Active Bookings").child(requests.getMachineUsedTextView()).removeValue();
-
-                        //removing from overdue if any
-                        try {
-                            String[] splitted = requests.getDateTextView().split("-");
-                            if (CheckIfOverdue.checkOverdue(Integer.parseInt(splitted[0]), Integer.parseInt(splitted[1]), Integer.parseInt(splitted[2]))) {
-                                FirebaseDatabase.getInstance().getReference().child("Overdue").child(requests.getUid()).child(requests.getMachineUsedTextView()).removeValue();
-                            }
-                        }catch (Exception e){
-                            e.printStackTrace();
-                        }
-
-                        //now updating the machine count
-                        //quering to get the present available count
-                        FirebaseDatabase mDatabase;
-                        DatabaseReference mRef;
-                        mDatabase = FirebaseDatabase.getInstance();
-                        mRef = mDatabase.getReference();
-                        mRef.keepSynced(true);
-                        final int[] availabilityCount = new int[1];
-                        Query availableCountQuery = mRef.child("Active Bookings");
-                        availableCountQuery.addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                availabilityCount[0] = Integer.valueOf(dataSnapshot.child(requests.getMachineUsedTextView()).child("available count").getValue().toString());
-                                //setting the new value of available count
-                                FirebaseDatabase.getInstance().getReference().child("Active Bookings").child(requests.getMachineUsedTextView()).child("available count").setValue(availabilityCount[0]+1);
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                            }
-                        });
+                        //changing the booking type to 'request sent'
+                        FirebaseDatabase.getInstance().getReference().child("Users").child(FirebaseAuth.getInstance().getUid()).child("Active Bookings").child(requests.getMachineUsedTextView()).child(requests.getKey()).child("booking type").setValue("request send");
                     }
                 });
-                dialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                     }
                 });
-                dialog.show();
+                builder.show();
+
+
             }
         });
         return view;
     }
+
 }

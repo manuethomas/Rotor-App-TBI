@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:mask="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/requestDialogLinearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="20dp"
-    tools:context=".MainActivity"
-    xmlns:mask="http://schemas.android.com/apk/res-auto">
+    tools:context=".MainActivity">
 
     <EditText
         android:id="@+id/fullNameEditText"
@@ -20,18 +21,26 @@
         android:hint="Full Name"
         android:padding="10dp" />
 
+    <TextView
+        android:id="@+id/machineSelectedTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/request_dialog_components_border"
+        android:padding="15dp"
+        android:textColor="@android:color/primary_text_light" />
 
     <Spinner
+        android:visibility="gone"
         android:id="@+id/spinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:background="@drawable/request_dialog_components_border"
-        android:padding="15dp"/>
+        android:padding="15dp" />
 
     <!-- Date is currently not used -->
     <br.com.sapereaude.maskedEditText.MaskedEditText
-        android:visibility="gone"
         android:id="@+id/dateEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -42,6 +51,7 @@
         android:inputType="text"
         android:padding="10dp"
         android:typeface="monospace"
+        android:visibility="gone"
         app:keep_hint="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

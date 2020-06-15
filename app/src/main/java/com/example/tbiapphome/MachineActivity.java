@@ -52,6 +52,31 @@ public class MachineActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_machine);
 
+        //If under maintenance go to maintenance page
+        FirebaseDatabase.getInstance().getReference().child("Maintenance").addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) { }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                String maintenanceValue = dataSnapshot.getValue().toString();
+                if (Boolean.parseBoolean(maintenanceValue)){
+                    Intent intent = new Intent(getApplicationContext(), MaintenanceActivity.class);
+                    startActivity(intent);
+                }
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) { }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) { }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) { }
+        });
+
+
         machinesProgressBar = findViewById(R.id.machinesProgressBar);
 
         machineList = new ArrayList<>();

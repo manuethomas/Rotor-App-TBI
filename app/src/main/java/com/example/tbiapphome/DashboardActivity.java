@@ -9,9 +9,11 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,6 +44,8 @@ public class DashboardActivity extends AppCompatActivity {
     String date;
     String iconurl;
     String uid;
+    String phoneNo;
+    String bookingType;
     int overdueCount=0;
     DeleteBookingsAdapter deleteBookingsAdapter;
     EditText dashboardEmailEditText;
@@ -75,6 +79,8 @@ public class DashboardActivity extends AppCompatActivity {
 
         //setting email from profile info
         dashboardEmailEditText.setText(FirebaseAuth.getInstance().getCurrentUser().getEmail());
+        dashboardEmailEditText.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_tick, 0);
+        Log.i("email", FirebaseAuth.getInstance().getCurrentUser().getEmail());
 
         //To query and get all active bookings
         FirebaseDatabase mDatabase;
@@ -83,7 +89,7 @@ public class DashboardActivity extends AppCompatActivity {
         mRef = mDatabase.getReference();
         mRef.keepSynced(true);
 
-        //to get name, machine name and date
+        //to get name, machine name and date, uid, phone no
         try {
             Query dashboardQuery = mRef.child("Users");
             dashboardQuery.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -95,30 +101,37 @@ public class DashboardActivity extends AppCompatActivity {
                     try {
                         name = dataSnapshot.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("name").getValue().toString();
                         for (DataSnapshot child : dataSnapshot.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("Active Bookings").getChildren()) {
-                            //each individual request got, taking the required values
-                            machineName = child.child("machine name").getValue().toString();
-                            date = child.child("date").getValue().toString();
-                            iconurl = child.child("iconurl").getValue().toString();
-                            uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                            requestsList.add(new Requests(machineName, date, uid));
-                            deleteBookingsAdapter.notifyDataSetChanged();
+                            //machine names got, taking all bookings
+                            for (DataSnapshot individualBookings: child.getChildren()) {
+                                //each individual request got, taking the required values
+                                bookingType = individualBookings.child("booking type").getValue().toString();
+                                machineName = individualBookings.child("machine name").getValue().toString();
+                                date = individualBookings.child("date").getValue().toString();
+                                iconurl = individualBookings.child("iconurl").getValue().toString();
+                                uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                                phoneNo = individualBookings.child("phone number").getValue().toString();
+                                requestsList.add(new Requests(machineName, date, uid, phoneNo, name, bookingType, individualBookings.getKey()));
+                                deleteBookingsAdapter.notifyDataSetChanged();
 
-                            //to set Username
-                            dashBoardUsernameTextView.setText(name);
-                            dashboardEmailEditText.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_tick, 0);
+                                //to set Username
+                                dashBoardUsernameTextView.setText(name);
 
-                            //to check if overdue
-                            String[] splitted = date.split("-");
-                            if (CheckIfOverdue.checkOverdue(Integer.valueOf(splitted[0]), Integer.valueOf(splitted[1]), Integer.valueOf(splitted[2]))) {
-                                overdueCount++;
-                                //now upload the values to overdue in firebase
-                                HashMap<String , String> overdueBookings = new HashMap<>();
-                                overdueBookings.put("name", name);
-                                overdueBookings.put("machine name", machineName);
-                                overdueBookings.put("date", date);
-                                overdueBookings.put("booking type", child.child("booking type").getValue().toString());
-                                overdueBookings.put("iconurl", iconurl);
-                                FirebaseDatabase.getInstance().getReference().child("Overdue").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(machineName).setValue(overdueBookings);
+                                //to check if overdue
+                                String[] splitted = date.split("-");
+                                if (CheckIfOverdue.checkOverdue(Integer.valueOf(splitted[0]), Integer.valueOf(splitted[1]), Integer.valueOf(splitted[2]))) {
+                                    Log.i("info", " i am overdue");
+                                    overdueCount++;
+                                    //now upload the values to overdue in firebase
+                                    HashMap<String, String> overdueBookings = new HashMap<>();
+                                    overdueBookings.put("name", name);
+                                    overdueBookings.put("machine name", machineName);
+                                    overdueBookings.put("date", date);
+                                    overdueBookings.put("booking type", individualBookings.child("booking type").getValue().toString());
+                                    overdueBookings.put("iconurl", iconurl);
+                                    overdueBookings.put("date", date);
+                                    overdueBookings.put("phone number", phoneNo);
+                                    FirebaseDatabase.getInstance().getReference().child("Overdue").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(machineName).child(individualBookings.getKey()).setValue(overdueBookings);
+                                }
                             }
 
                         }

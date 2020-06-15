@@ -30,7 +30,7 @@ public class MachineAdapter extends RecyclerView.Adapter<MachineAdapter.MyViewHo
 
     private Context mContext;
     private List<Machine> machineList;
-    //Variable for the
+    private int index;
 
     public class MyViewHolder extends RecyclerView.ViewHolder{
         public TextView machineCardName;
@@ -59,18 +59,18 @@ public class MachineAdapter extends RecyclerView.Adapter<MachineAdapter.MyViewHo
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final MachineAdapter.MyViewHolder holder, int position) {
-        Machine machine = machineList.get(position);
+    public void onBindViewHolder(@NonNull final MachineAdapter.MyViewHolder holder, final int position) {
+        final Machine machine = machineList.get(position);
         holder.machineCardName.setText(machine.getMachineName());
 
         // loading machine icons using Glide library
         Glide.with(mContext).load(machine.getMachineIcon()).into(holder.machineCardImageView);
-        //Log.i("MachineAdapter", machine.getMachineIcon().toString());
+
 
         holder.overflow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showPopupMenu(holder.overflow);
+                showPopupMenu(holder.overflow, machine.getMachineName());
             }
         });
 
@@ -79,12 +79,12 @@ public class MachineAdapter extends RecyclerView.Adapter<MachineAdapter.MyViewHo
     /**
      * Showing popup menu when tapping on 3 dots
      */
-    private void showPopupMenu(View view) {
+    private void showPopupMenu(View view, String machineName) {
         // inflate menu
         PopupMenu popup = new PopupMenu(mContext, view);
         MenuInflater inflater = popup.getMenuInflater();
         inflater.inflate(R.menu.menu_machine, popup.getMenu());
-        popup.setOnMenuItemClickListener(new MyMenuItemClickListener());
+        popup.setOnMenuItemClickListener(new MyMenuItemClickListener(machineName));
         popup.show();
     }
 
@@ -94,15 +94,17 @@ public class MachineAdapter extends RecyclerView.Adapter<MachineAdapter.MyViewHo
      */
 
     class MyMenuItemClickListener implements PopupMenu.OnMenuItemClickListener {
+        String machineName;
 
-        public MyMenuItemClickListener() {
+        public MyMenuItemClickListener(String machineName) {
+            this.machineName = machineName;
         }
 
         @Override
         public boolean onMenuItemClick(MenuItem menuItem) {
             switch (menuItem.getItemId()) {
                 case R.id.book:
-                    RequestDialog.displayDialog(mContext);
+                    RequestDialog.displayDialog(mContext, machineName);
                     return true;
                 default:
             }

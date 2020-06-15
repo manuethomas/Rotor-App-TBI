@@ -10,7 +10,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".DashboardActivity"></activity>
+        <activity android:name=".MaintenanceActivity"></activity>
+        <activity android:name=".DashboardActivity" />
         <activity android:name=".MachineActivity" />
         <activity android:name=".RequestsActivity" />
         <activity android:name=".MainActivity">
