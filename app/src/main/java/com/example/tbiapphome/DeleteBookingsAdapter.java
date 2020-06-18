@@ -3,6 +3,7 @@ package com.example.tbiapphome;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -73,7 +75,6 @@ public class DeleteBookingsAdapter extends ArrayAdapter<Requests> {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         //code
-
                         // displaying the translucentImageView and disabling the end button
                             translucentImageView.setAlpha((float) 0.92);
                             sendTextView.setAlpha(1);

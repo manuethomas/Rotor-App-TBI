@@ -315,7 +315,7 @@
                         android:background="#00000000"
                         android:drawableRight="@drawable/ic_chervon_right"
                         android:fontFamily="sans-serif-medium"
-                        android:hint="Semster"
+                        android:hint="Semester"
                         android:padding="8dp"
                         android:textColor="@color/cardview_dark_background"
                         android:textSize="14sp" />

@@ -29,7 +29,7 @@ public class MaintenanceActivity extends AppCompatActivity {
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 String maintenanceValue = dataSnapshot.getValue().toString();
-                if (!Boolean.parseBoolean(maintenanceValue)){
+                if (Boolean.parseBoolean(maintenanceValue)){
                     Intent intent = new Intent(getApplicationContext(), MachineActivity.class);
                     startActivity(intent);
                 }

@@ -4,6 +4,7 @@ package com.example.tbiapphome;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -30,9 +31,12 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.MutableData;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ServerValue;
+import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.StorageReference;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -119,7 +123,7 @@ public class RequestDialog  {
         final DatabaseReference mRef;
         mDatabase = FirebaseDatabase.getInstance();
         mRef = mDatabase.getReference();
-        mRef.keepSynced(true);
+
         Query queryCount = mRef.child("Active Bookings");
         queryCount.addValueEventListener(new ValueEventListener() {
             @Override
@@ -138,7 +142,6 @@ public class RequestDialog  {
 
             }
         });
-
 
         //setting touch listener for requestDialogLinearLayout
         requestDialogLinearLayout.setOnTouchListener(new View.OnTouchListener() {
@@ -196,11 +199,6 @@ public class RequestDialog  {
             @Override
             public void onClick(final DialogInterface dialog, int which) {
                 Boolean flag = true;
-                if (selectedMachineName.equalsIgnoreCase("Choose a Machine...")){
-                    flag = false;
-                    Toast.makeText(activity, "Choose a machine", Toast.LENGTH_SHORT).show();
-                    dialog.dismiss();
-                }
                 if (fullNameEditText.getText().toString().equalsIgnoreCase("")){
                     flag = false;
                     Toast.makeText(activity, "Enter name", Toast.LENGTH_SHORT).show();
@@ -231,26 +229,29 @@ public class RequestDialog  {
                 }
 
                  */
-                if (availabilityCount[0] < 1 && !selectedMachineName.equalsIgnoreCase("Choose a Machine...")){
+                if (availabilityCount[0] < 1){
                     Toast.makeText(activity, "No available machines", Toast.LENGTH_SHORT).show();
                     flag = false;
                 }
 
+
                 // If all the above parameters are satisfied then moving on to querying database
                 if (flag){
+                    Log.i("info", "I entered");
                     //means now machines are available, then we are good to go. Proceeding to booking
                     //getting machineIcon and uploading data to Active Bookings
+                    //to get machineIcon
                     final String[] iconurl = new String[1];
                     Query machineIcon = mRef.child("Machines");
                     machineIcon.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             iconurl[0] = dataSnapshot.child(selectedMachineName).child("iconurl").getValue().toString();
+
                             //getting current date first
                             DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
                             Calendar calendar = Calendar.getInstance();
                             String currentDate = df.format(calendar.getTime());
-
                             //creating a hashmap
                             HashMap<String, Object> bookingInfo = new HashMap<>();
                             bookingInfo.put("booking type", "Start");
@@ -273,13 +274,12 @@ public class RequestDialog  {
 
                             //adding name to users
                             FirebaseDatabase.getInstance().getReference().child("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("name").setValue(fullNameEditText.getText().toString());
+
                         }
 
                         @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                        }
-                    });
+                        public void onCancelled(@NonNull DatabaseError databaseError) { }
+                                });
                 }
             }
         });

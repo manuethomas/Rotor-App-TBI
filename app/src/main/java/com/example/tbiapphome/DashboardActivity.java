@@ -121,16 +121,6 @@ public class DashboardActivity extends AppCompatActivity {
                                 if (CheckIfOverdue.checkOverdue(Integer.valueOf(splitted[0]), Integer.valueOf(splitted[1]), Integer.valueOf(splitted[2]))) {
                                     Log.i("info", " i am overdue");
                                     overdueCount++;
-                                    //now upload the values to overdue in firebase
-                                    HashMap<String, String> overdueBookings = new HashMap<>();
-                                    overdueBookings.put("name", name);
-                                    overdueBookings.put("machine name", machineName);
-                                    overdueBookings.put("date", date);
-                                    overdueBookings.put("booking type", individualBookings.child("booking type").getValue().toString());
-                                    overdueBookings.put("iconurl", iconurl);
-                                    overdueBookings.put("date", date);
-                                    overdueBookings.put("phone number", phoneNo);
-                                    FirebaseDatabase.getInstance().getReference().child("Overdue").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(machineName).child(individualBookings.getKey()).setValue(overdueBookings);
                                 }
                             }
 

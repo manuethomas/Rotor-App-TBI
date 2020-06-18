@@ -24,6 +24,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -36,6 +37,7 @@ public class RequestsActivity extends AppCompatActivity {
     String date;
     String iconurl;
     String phoneNo;
+    String uid;
     RequestsAdapter requestsAdapter;
     int checkConnectionCount = 0;
     @Override
@@ -76,6 +78,7 @@ public class RequestsActivity extends AppCompatActivity {
                                 machineName = individualBookings.child("machine name").getValue().toString();
                                 iconurl = individualBookings.child("iconurl").getValue().toString();
                                 phoneNo = individualBookings.child("phone number").getValue().toString();
+                                uid = uids.getKey();
                                 Log.i("info", name);
                                 Log.i("info", date);
                                 Log.i("info", machineName);
@@ -87,6 +90,22 @@ public class RequestsActivity extends AppCompatActivity {
                                 requestsList.add(new Requests(machineName, name, date, iconPathReference, phoneNo));
                                 requestsAdapter.notifyDataSetChanged();
                                 requestActivityProgressBar.setVisibility(View.INVISIBLE);
+
+                                //to check if overdue
+                                String[] splitted = date.split("-");
+                                if (CheckIfOverdue.checkOverdue(Integer.valueOf(splitted[0]), Integer.valueOf(splitted[1]), Integer.valueOf(splitted[2]))) {
+                                    Log.i("info", " i am overdue");
+                                    //now upload the values to overdue in firebase
+                                    HashMap<String, String> overdueBookings = new HashMap<>();
+                                    overdueBookings.put("name", name);
+                                    overdueBookings.put("machine name", machineName);
+                                    overdueBookings.put("date", date);
+                                    overdueBookings.put("booking type", individualBookings.child("booking type").getValue().toString());
+                                    overdueBookings.put("iconurl", iconurl);
+                                    overdueBookings.put("date", date);
+                                    overdueBookings.put("phone number", phoneNo);
+                                    FirebaseDatabase.getInstance().getReference().child("Overdue").child(uid).child(machineName).child(individualBookings.getKey()).setValue(overdueBookings);
+                                }
                             }
 
 

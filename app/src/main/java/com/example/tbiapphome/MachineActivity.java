@@ -55,10 +55,7 @@ public class MachineActivity extends AppCompatActivity {
         //If under maintenance go to maintenance page
         FirebaseDatabase.getInstance().getReference().child("Maintenance").addChildEventListener(new ChildEventListener() {
             @Override
-            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) { }
-
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 String maintenanceValue = dataSnapshot.getValue().toString();
                 if (Boolean.parseBoolean(maintenanceValue)){
                     Intent intent = new Intent(getApplicationContext(), MaintenanceActivity.class);
@@ -66,15 +63,24 @@ public class MachineActivity extends AppCompatActivity {
                 }
             }
 
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) { }
+        @Override
+        public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+            String maintenanceValue = dataSnapshot.getValue().toString();
+            if (Boolean.parseBoolean(maintenanceValue)){
+                Intent intent = new Intent(getApplicationContext(), MaintenanceActivity.class);
+                startActivity(intent);
+            }
+        }
 
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) { }
+        @Override
+        public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) { }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) { }
-        });
+        @Override
+        public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) { }
+
+        @Override
+        public void onCancelled(@NonNull DatabaseError databaseError) { }
+    });
 
 
         machinesProgressBar = findViewById(R.id.machinesProgressBar);
