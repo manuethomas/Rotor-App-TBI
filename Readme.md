@@ -20,8 +20,6 @@ This application was originally created by Team Tessera.
 
 ## Screenshots
 
-<img src="images/1.jpeg" align="left" width="200" hspace="10" vspace="10" style="border: 1px solid black;">
-<img src="images/2.jpeg" align="center" width="200" hspace="10" vspace="10" style="border: 1px solid black;">
-<img src="images/3.jpeg" align="center" width="200" hspace="10" vspace="10" style="border: 1px solid black;">
+<img src="images/screenshot.jpg" align="left" width="1000" hspace="10" vspace="10">
 
 
