@@ -20,12 +20,9 @@ This application was originally created by Team Tessera.
 
 ## Screenshots
 
-[<img src="images/1.jpeg" align="left"
-width="200"
-    hspace="10" vspace="10">](/readme/Wallabag%20Reading%20List.png)
-[<img src="images/2.jpeg" align="center"
-width="200"
-    hspace="10" vspace="10">](/readme/Wallabag%20Article%20View.png)
-[<img src="images/3.jpeg" align="center"
-width="200"
-    hspace="10" vspace="10">](/readme/Wallabag%20Article%20View.png)
+<div style="background-color: #f5f5f5;">
+    <img src="images/1.jpeg" align="left" width="200" hspace="10" vspace="10">
+    <img src="images/2.jpeg" align="center" width="200" hspace="10" vspace="10">
+    <img src="images/3.jpeg" align="center" width="200" hspace="10" vspace="10">
+</div>
+
